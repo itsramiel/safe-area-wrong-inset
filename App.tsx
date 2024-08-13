@@ -17,6 +17,7 @@ function HomeScreen({navigation}: {navigation: NavigationProp<TRoutes>}) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <SafeAreaView
+        edges={['top']}
         onLayout={e => {
           console.log(e.nativeEvent.layout.height);
         }}
@@ -42,7 +43,17 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      linking={{
+        prefixes: ['myapp://'],
+        config: {
+          initialRouteName: 'Home',
+          screens: {
+            Home: 'home',
+            Details: 'details',
+          },
+        },
+      }}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
